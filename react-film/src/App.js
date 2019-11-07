@@ -7,6 +7,7 @@ import './App.css';
 const { films } = TMDB;
 
 class App extends Component {
+
   state = {
     films: films,
     faves: [],
@@ -27,25 +28,20 @@ class App extends Component {
   }
 
   handleDetailsClick = film => {
+    console.log("film  ",film)
     const url = `https://api.themoviedb.org/3/movie/${film.id}?api_key=${TMDB.api_key}&append_to_response=videos,images&language=en`;
-
-
     fetch(url)
       .then((response) => {
         return response.json();
       }).then((data) => {
         this.setState({ current: data });
       });
-
-
   }
 
 
-  render() {
-
+  render() {   
+    console.log("TMDB.api_key  ",TMDB.api_key)
     return (
-
-
       <div className="film-library">
         <FilmListing
           films={this.state.films}
@@ -53,8 +49,6 @@ class App extends Component {
           onFaveToggle={this.handleFaveToggle}
           onDetailClick={this.handleDetailsClick}
         />
-
-
         <FilmDetails films={this.state.current} />
       </div>
     );
